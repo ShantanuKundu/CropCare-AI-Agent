@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import axios from 'axios'
+import { api } from '../api'
 
 /* ── Feature 2: Crop & Fertilizer Recommendation ─────────────── */
 export default function RecommendTab() {
@@ -17,10 +17,10 @@ export default function RecommendTab() {
     setResult(null)
 
     try {
-      const { data } = await axios.post('/api/recommend', {
+      const { data } = await api.post('/api/recommend', {
         region: region.trim(),
         query:  query.trim(),
-      }, { timeout: 90_000 })
+      })
       setResult(data)
     } catch (err) {
       setError(

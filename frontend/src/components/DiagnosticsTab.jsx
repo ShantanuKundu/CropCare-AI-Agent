@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react'
-import axios from 'axios'
+import { api } from '../api'
 
 /* ── Feature 1: Leaf Disease Diagnostics ─────────────────────── */
 export default function DiagnosticsTab() {
@@ -46,10 +46,10 @@ export default function DiagnosticsTab() {
     try {
       // imagePreview is already a data URL — strip the prefix to get raw base64
       const b64 = imagePreview.split(',')[1]
-      const { data } = await axios.post('/api/diagnose', {
+      const { data } = await api.post('/api/diagnose', {
         image_b64: b64,
         mime_type: imageFile.type,
-      }, { timeout: 90_000 })
+      })
       setResult(data)
     } catch (err) {
       setError(

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import axios from 'axios'
+import { api } from '../api'
 
 const CROPS = [
   'Wheat', 'Rice', 'Cotton', 'Sugarcane', 'Maize',
@@ -35,11 +35,11 @@ export default function YieldTab() {
     setResult(null)
 
     try {
-      const { data } = await axios.post('/api/predict-yield', {
+      const { data } = await api.post('/api/predict-yield', {
         crop,
         area_ha: area,
         season,
-      }, { timeout: 60_000 })
+      })
       setResult(data)
     } catch (err) {
       setError(

@@ -36,10 +36,17 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        # Local development
         "http://localhost:5173",
         "http://127.0.0.1:5173",
         "http://localhost:3000",
+        # Vercel production — update these with your actual Vercel domains
+        "https://cropcare-ai-agent.vercel.app",
+        "https://crop-care-ai-agent.vercel.app",
+        # Allow all Vercel preview deployments for this project
+        # (Vercel generates unique URLs like <project>-<hash>-<team>.vercel.app)
     ],
+    allow_origin_regex=r"https://.*\.vercel\.app",  # covers all *.vercel.app previews
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
